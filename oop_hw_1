@@ -31,6 +31,14 @@ class Student:
             return 'Ошибка'
 
 
+def total_hw_grade(students, course):
+    hw_grades = []
+    for student in students:
+        if course in student.grades:
+            hw_grades.extend(student.grades[course])
+    return sum(hw_grades)/len(hw_grades)
+
+
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
@@ -58,6 +66,14 @@ class Lecturer(Mentor):
         return sum(self.list_grades)/len(self.list_grades) < sum(other.list_grades)/len(other.list_grades)
 
 
+def total_lect_grade(lecturers, course):
+    lect_grades = []
+    for lecturer in lecturers:
+        if course in lecturer.grades:
+            lect_grades.extend(lecturer.grades[course])
+    return sum(lect_grades)/len(lect_grades)
+
+
 class Reviewer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
@@ -80,20 +96,19 @@ student1 = Student('Roy', 'Eman', 'your_gender')
 student1.courses_in_progress += ['Python', 'Java']
 student1.finished_courses = ['C++']
 student2 = Student('John', 'Smith', 'non_binary_gender')
-student2.courses_in_progress += ['Java', 'C++', 'Python']
+student2.courses_in_progress += ['Java']
 student2.finished_courses = []
 student3 = Student('Paul', 'Broun', 'unknown_gender')
-student3.courses_in_progress += ['Java']
-student3.finished_courses = ['C++', 'Python']
-
+student3.courses_in_progress += ['C++']
+student3.finished_courses = ['Java']
+students = [student1, student2, student3]
 
 reviewer1 = Reviewer('Some', 'Buddy')
-reviewer1.courses_attached += ['Python', 'C++']
+reviewer1.courses_attached += ['Python', 'C++', 'Java']
 reviewer2 = Reviewer('Another', 'Buddy')
-reviewer2.courses_attached += ['Java', 'Python']
+reviewer2.courses_attached += ['Java', 'Python', 'C++']
 reviewer3 = Reviewer('Onemore', 'Buddy')
-reviewer3.courses_attached += ['Java']
-
+reviewer3.courses_attached += ['Java', 'Python', 'C++']
 
 lecturer1 = Lecturer('Bill', 'Gates')
 lecturer1.courses_attached += ['Python', 'C++', 'Java']
@@ -101,21 +116,20 @@ lecturer2 = Lecturer('Steve', 'Jobs')
 lecturer2.courses_attached += ['Java', 'C++']
 lecturer3 = Lecturer('Mark', 'Zukerberg')
 lecturer3.courses_attached += ['Java', 'Python']
-
+lecturers = [lecturer1, lecturer2, lecturer3]
 
 reviewer1.rate_hw(student1, 'Python', 9)
 reviewer2.rate_hw(student2, 'Java', 5)
-reviewer2.rate_hw(student1, 'Java', 8)
+reviewer2.rate_hw(student1, 'Java', 7)
 reviewer3.rate_hw(student3, 'C++', 10)
-reviewer3.rate_hw(student2, 'Java', 15)
-reviewer3.rate_hw(student3, 'Java', 10)
+reviewer3.rate_hw(student2, 'Java', 8)
 
 student1.rate_lect(lecturer1, 'Python', 10)
 student2.rate_lect(lecturer2, 'Java', 9)
-student3.rate_lect(lecturer2, 'C++', 5)
+student3.rate_lect(lecturer2, 'C++', 6)
 student2.rate_lect(lecturer2, 'Java', 6)
-student3.rate_lect(lecturer3, 'Java', 8)
-student3.rate_lect(lecturer1, 'Python', 2)
+student3.rate_lect(lecturer3, 'C++', 8)
+student3.rate_lect(lecturer1, 'Java', 2)
 student1.rate_lect(lecturer3, 'C++', 7)
 
 

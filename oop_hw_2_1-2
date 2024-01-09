@@ -1,0 +1,21 @@
+cook_book = {}
+with open('recipes.txt', 'r', encoding='UTF-8') as f:
+    recipes = f.read().split('\n\n')
+    for food in recipes:
+        cook_list = []
+        key = food.split('\n')[0]
+        ingredients = food.split('\n')[2:]
+        for i in ingredients:
+            ingr_dict = {'ingredient_name':i.split(' | ')[0], 'quantity':i.split(' | ')[1], 'meansure':i.split(' | ')[2]}
+            cook_list.append(ingr_dict)
+        cook_book[key] = cook_list 
+
+
+def get_shop_list_by_dishes(dishes, person_count):
+    shop_list = {}
+    for dish in dishes:
+        for ingr in cook_book[dish]:            
+            shop_list[ingr["ingredient_name"]] = {"meansure" : ingr["meansure"], "quantity" : person_count*int(ingr["quantity"])}
+    return shop_list
+
+print(get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2))

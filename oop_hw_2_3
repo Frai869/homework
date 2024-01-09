@@ -1,0 +1,48 @@
+import os.path
+from pprint import pprint
+files_list = []
+names = []
+length = []
+content = []
+
+with open('1.txt', 'r', encoding='UTF-8') as f1:
+    path1 = "1.txt"
+    filename1 = os.path.basename(path1)
+    names.append(filename1)
+    lines1 = f1.readlines()
+    content.append(lines1)
+    l1 = len(lines1)
+    length.append(l1)
+
+with open('2.txt', 'r', encoding='UTF-8') as f2:
+    path2 = "2.txt"
+    filename2 = os.path.basename(path2)
+    names.append(filename2)
+    lines2 = f2.readlines()
+    content.append(lines2)
+    l2 = len(lines2)
+    length.append(l2)
+
+with open('3.txt', 'r', encoding='UTF-8') as f3:
+    path3 = "3.txt"
+    filename3 = os.path.basename(path3)
+    names.append(filename3)
+    lines3 = f3.readlines()
+    content.append(lines3)
+    l3 = len(lines3)
+    length.append(l3)
+
+for names_, length_, content_ in zip(names, length, content):
+    files_dict = {"file": names_, "len": length_, "content": content_}
+    files_list.append(files_dict)
+
+files_sort = sorted(files_list, key = lambda x: x["len"])
+
+new_file = open("result.txt", "w", encoding='UTF-8')
+for i in files_sort:
+    new_file.write(i['file'])
+    new_file.write("\n")
+    new_file.write(str(i['len']))
+    new_file.write("\n")
+    new_file.write("".join(i['content']))
+new_file.close()

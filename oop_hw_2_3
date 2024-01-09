@@ -45,4 +45,5 @@ for i in files_sort:
     new_file.write(str(i['len']))
     new_file.write("\n")
     new_file.write("".join(i['content']))
+    new_file.write("\n")
 new_file.close()
